@@ -1,0 +1,26 @@
+# ROMs privadas (comerciais) - nunca versionar
+**/roms/
+
+# Empacotamento / assinatura Tizen
+*.wgt
+**/.buildResult/
+.manifest.tmp
+author-signature.xml
+signature1.xml
+
+# Backups e caches
+*.bak
+*.log
+.DS_Store
+
+# Catalogo privado (nomes de ROMs comerciais) - fora do repo publico
+roms.json
+# Screenshots de jogos comerciais
+img/shots/
+# Imagens de trabalho (fontes do preparo do controle), fora do repo
+img/joy_atari_real_base.jpg
+img/atari2600-6_reset_select.jpg
+# Imagens de controle nao usadas e sem licenca clara (fora do repo publico)
+img/joy_atari.jpg
+img/joy_atari_base.jpg
+img/CX40-joystick-dimensions.svg
