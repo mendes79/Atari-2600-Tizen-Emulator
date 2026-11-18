@@ -106,8 +106,8 @@
     image-rendering:pixelated;will-change:transform;background:#000;display:block}
   /* Legenda de controles no jogo (Select e Reset sempre visiveis na HUD) */
   #glegend{position:fixed;left:0;right:0;bottom:1.6vh;z-index:21;display:none;text-align:center;
-    color:#dfe5ee;font-size:1.9vh;letter-spacing:.3px;pointer-events:none;
-    text-shadow:0 1px 4px rgba(0,0,0,.9)}
+    color:#dfe5ee;font-size:1.9vh;letter-spacing:.3px;pointer-events:none;opacity:1;
+    transition:opacity .6s ease;text-shadow:0 1px 4px rgba(0,0,0,.9)}
   #glegend b{color:#f2b03c}
   #glegend .sep{color:#6b7078;margin:0 .7vw}
 </style>
@@ -479,8 +479,9 @@
             rom: it.name, targetFps: +(tfps * currentSpeedScale()).toFixed(1), sampleRate: 44100 });
         }
         selScreen.style.display = "none"; settingsEl.style.display = "none"; joycfgEl.style.display = "none";
-        stageEl.style.display = "flex"; gLegend.style.display = "block";
+        stageEl.style.display = "flex";
         mode = "game"; selView = "list"; frameAccumulator = 0; lastLoopTs = 0;
+        showExitHint();
         applyAudioGain();
       }).catch(function(e) { console.error("[CORE] init:", e); });
     });
@@ -489,7 +490,7 @@
     if (mode !== "game") return;
     mode = "carousel"; applyAudioGain();
     clearState(padInput); clearState(keyInput);
-    stageEl.style.display = "none"; gLegend.style.display = "none";
+    stageEl.style.display = "none"; hideExitHint();
     selScreen.style.display = "block"; setFocusGear(false);
   }
   function exitApp() { try { if (window.tizen && tizen.application) tizen.application.getCurrentApplication().exit(); } catch(e) {} }
@@ -525,7 +526,23 @@
     remotePulseTimers[prop] = setTimeout(function(){ keyInput[prop] = false; syncInputToAdapter(); }, ms || 150);
   }
 
-  gLegend.innerHTML = "<b>Tiro</b> A/B/Z/X <span class='sep'>|</span> <b>Select</b> Play/Pause <span class='sep'>|</span> <b>Reset</b> OK/Start <span class='sep'>|</span> <b>Voltar</b> Select+Start";
+  // Dica de saida: aparece por 4s ao carregar cada jogo e some (fade), para nao poluir a tela cheia
+  var legendTimer = null;
+  function showExitHint() {
+    gLegend.innerHTML = "<b>Select + Start</b> para VOLTAR";
+    gLegend.style.display = "block";
+    void gLegend.offsetWidth; // reflow para a transicao de fade-in valer
+    gLegend.style.opacity = "1";
+    if (legendTimer) clearTimeout(legendTimer);
+    legendTimer = setTimeout(function(){
+      gLegend.style.opacity = "0";
+      setTimeout(function(){ if (gLegend.style.opacity === "0") gLegend.style.display = "none"; }, 650);
+    }, 4000);
+  }
+  function hideExitHint() {
+    if (legendTimer) { clearTimeout(legendTimer); legendTimer = null; }
+    gLegend.style.opacity = "0"; gLegend.style.display = "none";
+  }
 
   // ===== Teclado / controle remoto =====
   window.addEventListener("keydown", function(ev) {
