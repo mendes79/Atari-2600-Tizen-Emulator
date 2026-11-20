@@ -112,14 +112,15 @@ Este projeto é um emulador independente e não oficial, desenvolvido apenas par
 
 ## Créditos
 
-- Núcleo Stella 2014: os autores do Stella e a equipe do libretro.
-- ROM Firefly: retroromrunner (domínio público).
+- [Núcleo Stella 2014](https://github.com/libretro/stella2014-libretro): os autores do [Stella](https://github.com/stella-emu/stella) e a equipe do [libretro](https://www.libretro.com/).
+- [ROM Firefly](https://github.com/retroromrunner/firefly-atari-2600): retroromrunner (domínio público).
 - Foto do controle, papel de parede da seleção, ícone do app e overlays de destaque: veja THIRD-PARTY.md.
-- Harness de referência do GameBoy e o projeto lilauncher, no qual este emulador se encaixa.
+- Harness de referência do GameBoy e o projeto [lilauncher](https://github.com/mendes79/lilauncher), no qual este emulador se encaixa.
 
 ## Projetos relacionados
 
 - [lilauncher](https://github.com/mendes79/lilauncher) — a tela inicial personalizada da TV Samsung em que este emulador roda.
 - [SNES Tizen Emulator](https://github.com/mendes79/SNES-Tizen-Emulator) — mesma abordagem, núcleo de Super Nintendo.
+- [Videokê TV](https://github.com/mendes79/videoke-tv) — estação de karaokê para a TV, fila em tempo real pelo celular via QR Code, aberta pelo lilauncher.
 
 Versão em inglês: veja [README.md](README.md).
